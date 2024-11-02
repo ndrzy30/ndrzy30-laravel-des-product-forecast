@@ -26,8 +26,7 @@ Sistem ini merupakan implementasi metode Double Exponential Smoothing untuk memp
 
 ## Instalasi
 1. Clone repository
-```bash
-git clone https://github.com/zaiandra/des_prediksi_permintaan_obat.git
+
 
 2. Install dependencies
 composer install
