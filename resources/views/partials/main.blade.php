@@ -191,7 +191,7 @@
         <div class="footer-wrapper container-fluid">
             <div class="row">
                 <div class="col-sm-6 my-1">
-                    <p class="m-0">Trend Projection &#9829; crafted by Team <a href="#" target="_blank">SPP OBAT</a></p>
+                    <p class="m-0">METODE DOUBLE EXPONENTIAL SMOOTHING &#9829; PROGRAM <a href="#" target="_blank">DES</a></p>
                 </div>
                 <div class="col-sm-6 ms-auto my-1">
                     <ul class="list-inline footer-link mb-0 justify-content-sm-end d-flex">
@@ -199,6 +199,7 @@
                     </ul>
                 </div>
             </div>
+            
         </div>
     </footer>
 
