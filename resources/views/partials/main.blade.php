@@ -62,7 +62,7 @@
             <div class="m-header">
                 <a href="{{ route('dashboard') }}" class="b-brand text-primary">
                     <!-- ========   Change your logo from here   ============ -->
-                    <h4 class="text-primary">SPP OBAT<i class="fa-solid fa-stethoscope"></i></h4>
+                    <h4 class="text-primary">DES OBAT<i class="fa-solid fa-stethoscope"></i></h4>
                 </a>
             </div>
             <div class="navbar-content">
@@ -85,13 +85,29 @@
                                 Penjualan</span></a>
                     </li>
                     <li class="pc-item pc-hasmenu">
-                        <a href="#!" class="pc-link"><span class="pc-micon">
-                                <i class="ph ph-tree-structure"></i> </span><span class="pc-mtext">Trend
-                                Projection</span><span class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
+                        <a href="#!" class="pc-link">
+                            <span class="pc-micon">
+                                <i data-feather="trending-up"></i>
+                            </span>
+                            <span class="pc-mtext">Prediksi Permintaan</span>
+                            <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                        </a>
                         <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="{{ route('train.index') }}">Model</a></li>
-                            <li class="pc-item"><a class="pc-link" href="{{ route('predict.index') }}">Prediksi</a>
-                            </li>
+                            <li class="pc-item"><a class="pc-link" href="{{ route('train.index') }}">Lakukan Prediksi DES</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{ route('predict.index') }}">Hasil Prediksi DES</a></li>
+                        </ul>
+                    </li>
+                    <li class="pc-item pc-hasmenu">
+                        <a href="#!" class="pc-link">
+                            <span class="pc-micon">
+                                <i data-feather="bar-chart-2"></i>
+                            </span>
+                            <span class="pc-mtext">Analisis dan Laporan</span>
+                            <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                        </a>
+                        <ul class="pc-submenu">
+                            <li class="pc-item"><a class="pc-link" href="{{ route('train.index') }}">Laporan Stok Obat</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{ route('predict.index') }}">Laporan Penjualan dan Permintaan</a></li>
                         </ul>
                     </li>
                     </li>
@@ -109,7 +125,7 @@
         <div class="m-header">
             <a href="../dashboard/index.html" class="b-brand text-primary">
                 <!-- ========   Change your logo from here   ============ -->
-                <h4 class="text-light pt-2">SPP OBAT<i class="fa-solid fa-stethoscope"></i></h4>
+                <h4 class="text-light pt-2">METODE DES<i class="#"></i></h4>
             </a>
         </div>
         <div class="header-wrapper"> <!-- [Mobile Media Block] start -->

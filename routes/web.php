@@ -3,28 +3,32 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ObatController;
-use App\Http\Controllers\PredictController;
-use App\Http\Controllers\SaleController;
-use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\PrediksiController;
+use App\Http\Controllers\LaporanController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('medicine', ObatController::class);
-    Route::post('import-medicine', [ObatController::class, 'imports'])->name('import-medicine');
-    Route::resource('sales', SaleController::class);
-    Route::post('import-sales', [SaleController::class, 'imports'])->name('import-sales');
-    Route::get('drop', [SaleController::class, 'reset'])->name('reset');
-
-    // Training route
-    Route::get('train-data', [TrainingController::class, 'index'])->name('train.index');
-    Route::get('data-trend', [TrainingController::class, 'calculate'])->name('train.store');
-    
-    // Predict route
-    Route::get('predict', [PredictController::class, 'index'])->name('predict.index');
-    Route::post('predict-data', [PredictController::class, 'store'])->name('predict.store');
-});
-
-Route::get('/', [LoginController::class, 'index'])->name('home')->middleware('guest');
-Route::post('authentication', [LoginController::class, 'auth'])->name('auth')->middleware('guest');
+// Route untuk Authentication (Halaman Utama/Login)
+Route::get('/', [LoginController::class, 'index'])->name('home');
+Route::post('authentication', [LoginController::class, 'auth'])->name('auth');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
+// Routes yang perlu authentication
+Route::middleware(['auth'])->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    // Data Obat 
+    Route::resource('medicine', ObatController::class);
+    
+    // Data Penjualan
+    Route::resource('sales', PenjualanController::class);
+    
+    // Prediksi
+    Route::get('/train-data', [PrediksiController::class, 'index'])->name('train.index');
+    Route::get('/predict', [PrediksiController::class, 'showPrediction'])->name('predict.index');
+    
+    // Laporan
+    Route::get('/laporan/stok', [LaporanController::class, 'stokObat'])->name('laporan.stok');
+    Route::get('/laporan/penjualan', [LaporanController::class, 'penjualanPermintaan'])->name('laporan.penjualan');
+});

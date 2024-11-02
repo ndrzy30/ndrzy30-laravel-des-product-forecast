@@ -15,7 +15,7 @@
     <meta name="author" content="codedthemes">
 
     <!-- [Favicon] icon -->
-    <link rel="icon" href="../assets/images/favicon.svg" type="image/x-icon"> <!-- [Google Font : Poppins] icon -->
+    <link rel="icon" href="../assets/images/favicon.svg" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/fb034efa9e.js" crossorigin="anonymous"></script>
     <!-- [Tabler Icons] https://tablericons.com -->
@@ -54,13 +54,29 @@
                             <div class="text-center">
                                 <h1 class="text-primary mb-4">SPP OBAT<i class="fa-solid fa-stethoscope"></i></h1>
                             </div>
+                            @if(session()->has('loginError'))
+                                <div class="alert alert-danger">
+                                    {{ session('loginError') }}
+                                </div>
+                            @endif
                             <div class="form-group mb-3">
-                                <input type="email" class="form-control" name="email" id="floatingInput"
-                                    placeholder="Email Address">
+                                <input type="text" class="form-control @error('username') is-invalid @enderror" 
+                                       name="username" id="floatingInput" placeholder="Username"
+                                       value="{{ old('username') }}" required>
+                                @error('username')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group mb-3">
-                                <input type="password" class="form-control" name="password" id="floatingInput1"
-                                    placeholder="Password">
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                                       name="password" id="floatingInput1" placeholder="Password" required>
+                                @error('password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="d-grid mt-4">
                                 <button type="submit" class="btn btn-primary">Login</button>
@@ -80,50 +96,14 @@
     <script src="{{ asset('assets/js/pcoded.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/feather.min.js') }}"></script>
 
-
-
-
-
-    <script>
-        layout_change('light');
-    </script>
-
-
-
-
-    <script>
-        layout_sidebar_change('light');
-    </script>
-
-
-
-    <script>
-        change_box_container('false');
-    </script>
-
-
-    <script>
-        layout_caption_change('true');
-    </script>
-
-
-
-
-    <script>
-        layout_rtl_change('false');
-    </script>
-
-
-    <script>
-        preset_change("preset-1");
-    </script>
-
-
-    <script>
-        header_change("header-1");
-    </script>
+    <script>layout_change('light');</script>
+    <script>layout_sidebar_change('light');</script>
+    <script>change_box_container('false');</script>
+    <script>layout_caption_change('true');</script>
+    <script>layout_rtl_change('false');</script>
+    <script>preset_change("preset-1");</script>
+    <script>header_change("header-1");</script>
 
 </body>
 <!-- [Body] end -->
-
 </html>

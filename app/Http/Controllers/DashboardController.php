@@ -3,27 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Models\Obat;
-use App\Models\Sale;
+use App\Models\Prediksi;
+use App\Models\Penjualan;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $obat = Obat::count();
-        $type = Obat::distinct('jenis')->count('jenis');
-        $sale = Sale::count();
-        $obats = Obat::select('jenis', DB::raw('COUNT(*) as total_jumlah'))
-            ->groupBy('jenis')
-            ->get();
+        $data = [
+            'total_obat' => Obat::count(),
+            'total_penjualan' => Penjualan::count(),
+            'total_prediksi' => Prediksi::count(),
 
-        // Modified query to get monthly sales data
-        $monthlySales = Sale::selectRaw('YEAR(tanggal) as year, MONTH(tanggal) as month, SUM(jumlah) as total_quantity')
-            ->groupBy('year', 'month')
-            ->orderBy('year')
-            ->orderBy('month')
-            ->get();
+            // Data untuk grafik penjualan bulanan
+            'monthly_sales' => Penjualan::select(
+                DB::raw('YEAR(tanggal) as year'),
+                DB::raw('MONTH(tanggal) as month'),
+                DB::raw('SUM(jumlah) as total_quantity')
+            )
+                ->groupBy(DB::raw('YEAR(tanggal)'), DB::raw('MONTH(tanggal)'))
+                ->orderBy(DB::raw('YEAR(tanggal)'))
+                ->orderBy(DB::raw('MONTH(tanggal)'))
+                ->get(),
 
-        return view('admin.dashboard.index', compact('obat', 'type', 'sale', 'obats', 'monthlySales'));
+            // Data untuk grafik prediksi
+            'prediction_data' => [
+                'periods' => Prediksi::pluck('periode')->toArray(),
+                'actual' => Penjualan::pluck('jumlah')->toArray(),
+                'prediction' => Prediksi::pluck('hasil_prediksi')->toArray()
+            ]
+        ];
+
+        return view('admin.dashboard.index', $data);  // Ubah path sesuai struktur folder
     }
 }
