@@ -29,3 +29,7 @@ Sistem ini merupakan implementasi metode Double Exponential Smoothing untuk memp
 ```bash
 git clone https://github.com/zaiandra/des_prediksi_permintaan_obat.git
 
+Install dependencies
+composer install
+npm install
+
