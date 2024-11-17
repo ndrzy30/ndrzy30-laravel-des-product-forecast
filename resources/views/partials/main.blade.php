@@ -3,7 +3,7 @@
 <!-- [Head] start -->
 
 <head>
-    <title>Admin | @yield('title')</title>
+    <title>DES - YOGI SEMBIRING</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -13,8 +13,14 @@
     <meta name="keywords"
         content="Bootstrap admin template, Dashboard UI Kit, Dashboard Template, Backend Panel, react dashboard, angular dashboard">
     <meta name="author" content="codedthemes">
+    <!-- Tambahkan favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <!-- Favicon untuk berbagai platform -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
     <!-- [Favicon] icon -->
-    <link rel="icon" href="../assets/images/favicon.svg" type="image/x-icon">
+    {{-- <link rel="icon" href="../assets/images/favicon.svg" type="image/x-icon"> --}}
     <!-- map-vector css -->
     <link rel="stylesheet" href="../assets/css/plugins/jsvectormap.min.css">
     <!-- [Google Font : Poppins] icon -->
@@ -62,42 +68,68 @@
             <div class="m-header">
                 <a href="{{ route('dashboard') }}" class="b-brand text-primary">
                     <!-- ========   Change your logo from here   ============ -->
-                    <h4 class="text-primary">DES OBAT<i class="fa-solid fa-stethoscope"></i></h4>
+                    <h4 class="text-primary">DES Produk Pertanian UD Dison<i class="fa-solid fa-stethoscope"></i></h4>
                 </a>
             </div>
             <div class="navbar-content">
                 <ul class="pc-navbar">
                     <li class="pc-item">
-                        <a href="{{ route('dashboard') }}" class="pc-link"><span class="pc-micon">
-                                <i class="ph ph-gauge"></i></span><span class="pc-mtext">Dashboard</span></a>
+                        <a href="{{ route('dashboard') }}" class="pc-link">
+                            <span class="pc-micon">
+                                <i class="fa-solid fa-display me-2"></i>
+                            </span>
+                            <span class="pc-mtext">Dashboard</span>
+                        </a>
                     </li>
                     <li class="pc-item pc-caption">
                         <i class="ph ph-suitcase"></i>
                     </li>
                     <li class="pc-item">
-                        <a href="{{ route('medicine.index') }}" class="pc-link"><span class="pc-micon">
-                                <i class="fa-solid fa-capsules me-2"></i></span><span class="pc-mtext">Data
-                                Obat</span></a>
+                        <a href="{{ route('medicine.index') }}" class="pc-link">
+                            <span class="pc-micon">
+                                <i class="fa-solid fa-seedling me-2"></i> <!-- Menggunakan ikon tanaman -->
+                            </span>
+                            <span class="pc-mtext">Data Produk Pertanian</span>
+                        </a>
                     </li>
                     <li class="pc-item">
-                        <a href="{{ route('sales.index') }}" class="pc-link"><span class="pc-micon">
-                                <i class="fa-brands fa-shopify me-2"></i></span><span class="pc-mtext">Data
-                                Penjualan</span></a>
+                        <a href="{{ route('sales.index') }}" class="pc-link">
+                            <span class="pc-micon">
+                                <i class="fa-solid fa-basket-shopping me-2"></i>
+                            </span>
+                            <span class="pc-mtext">Data Penjualan</span>
+                        </a>
                     </li>
                     <li class="pc-item pc-hasmenu">
                         <a href="#!" class="pc-link">
                             <span class="pc-micon">
-                                <i data-feather="trending-up"></i>
+                                <i class="fa-solid fa-brain me-2"></i>
                             </span>
                             <span class="pc-mtext">Prediksi Permintaan</span>
-                            <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+                            <span class="pc-arrow">
+                                <i class="fa-solid fa-angle-down"></i>
+                            </span>
                         </a>
                         <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="{{ route('train.index') }}">Lakukan Prediksi DES</a></li>
-                            <li class="pc-item"><a class="pc-link" href="{{ route('predict.index') }}">Hasil Prediksi DES</a></li>
+                            <li class="pc-item">
+                                <a class="pc-link" href="{{ route('train.index') }}">
+                                    <span class="pc-micon">
+                                        <i class="fa-solid fa-gears me-2"></i>
+                                    </span>
+                                    Lakukan Prediksi
+                                </a>
+                            </li>
+                            <li class="pc-item">
+                                <a class="pc-link" href="#">
+                                    <span class="pc-micon">
+                                        <i class="fa-solid fa-chart-simple me-2"></i>
+                                    </span>
+                                    Hasil Prediksi
+                                </a>
+                            </li>
                         </ul>
                     </li>
-                    <li class="pc-item pc-hasmenu">
+                    {{-- <li class="pc-item pc-hasmenu">
                         <a href="#!" class="pc-link">
                             <span class="pc-micon">
                                 <i data-feather="bar-chart-2"></i>
@@ -109,7 +141,7 @@
                             <li class="pc-item"><a class="pc-link" href="{{ route('train.index') }}">Laporan Stok Obat</a></li>
                             <li class="pc-item"><a class="pc-link" href="{{ route('predict.index') }}">Laporan Penjualan dan Permintaan</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     </li>
                     {{-- <li class="pc-item">
                         <a href="{{ route('report') }}" class="pc-link"><span class="pc-micon">
@@ -123,11 +155,32 @@
     <!-- [ Sidebar Menu ] end --> <!-- [ Header Topbar ] start -->
     <header class="pc-header">
         <div class="m-header">
-            <a href="../dashboard/index.html" class="b-brand text-primary">
-                <!-- ========   Change your logo from here   ============ -->
-                <h4 class="text-light pt-2">METODE DES<i class="#"></i></h4>
+            <a href="{{ route('dashboard') }}" class="b-brand text-decoration-none">
+                <!-- Logo dan text dalam satu link -->
+                <h4 class="text-light pt-2 d-flex align-items-center">
+                    METODE DES
+                    <i class="fas fa-project-diagram ms-2"></i>
+                </h4>
             </a>
         </div>
+
+        <style>
+        .b-brand {
+            transition: all 0.3s ease;
+        }
+
+        .b-brand:hover {
+            opacity: 0.9;
+        }
+
+        .b-brand:hover .text-light {
+            color: #e9ecef !important;
+        }
+
+        .b-brand:hover i {
+            transform: translateY(-2px);
+        }
+        </style>
         <div class="header-wrapper"> <!-- [Mobile Media Block] start -->
             <div class="me-auto pc-mob-drp">
                 <ul class="list-unstyled">
@@ -190,16 +243,79 @@
     <footer class="pc-footer">
         <div class="footer-wrapper container-fluid">
             <div class="row">
+
                 <div class="col-sm-6 my-1">
-                    <p class="m-0">METODE DOUBLE EXPONENTIAL SMOOTHING &#9829; PROGRAM <a href="#" target="_blank">DES</a></p>
+                    <p class="footer-minimal m-0 d-flex align-items-center">
+                        <span class="text-primary fw-bold">METODE DES</span>
+                        <span class="mx-2">|</span>
+                        <span>Double Exponential Smoothing</span>
+                        <i class="fas fa-code mx-2 text-muted"></i>
+                        <a href="{{ route('dashboard') }}" class="minimal-link">Program</a>
+                    </p>
                 </div>
+
+                <style>
+                .footer-minimal {
+                    font-size: 0.9rem;
+                    color: #6c757d;
+                    letter-spacing: 0.5px;
+                }
+
+                .minimal-link {
+                    color: #4099ff;
+                    text-decoration: none;
+                    position: relative;
+                    padding-bottom: 2px;
+                }
+
+                .minimal-link::after {
+                    content: '';
+                    position: absolute;
+                    width: 0;
+                    height: 2px;
+                    bottom: 0;
+                    left: 0;
+                    background-color: #4099ff;
+                    transition: width 0.3s ease;
+                }
+
+                .minimal-link:hover::after {
+                    width: 100%;
+                }
+                </style>
+
+
+
+
                 <div class="col-sm-6 ms-auto my-1">
                     <ul class="list-inline footer-link mb-0 justify-content-sm-end d-flex">
-                        <li class="list-inline-item"><a href="../index.html">Home</a></li>
+                        <li class="list-inline-item">
+                            <a href="{{ route('dashboard') }}" class="text-decoration-none">
+                                <i class="fas fa-home me-1"></i>Home
+                            </a>
+                        </li>
                     </ul>
                 </div>
+
+                <style>
+                .footer-link a {
+                    color: #6c757d;
+                    transition: all 0.3s ease;
+                    padding: 5px 10px;
+                    border-radius: 4px;
+                }
+
+                .footer-link a:hover {
+                    color: #4099ff;
+                    background: rgba(64, 153, 255, 0.1);
+                }
+
+                .footer-link li {
+                    margin-left: 10px;
+                }
+                </style>
             </div>
-            
+
         </div>
     </footer>
 

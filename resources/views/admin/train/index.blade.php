@@ -40,7 +40,7 @@
                             <thead>
                                 <tr>
                                     <th>Tanggal</th>
-                                    <th>Obat</th>
+                                    <th>Produk</th>
                                     <th>Penjualan (Y)</th>
                                     <th>Periode (X)</th>
                                     <th>XY</th>

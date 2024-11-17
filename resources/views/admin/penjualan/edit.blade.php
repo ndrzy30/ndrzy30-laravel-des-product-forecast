@@ -9,7 +9,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title border-bottom pb-2 mb-2">
-                                <h4 class="mb-0">Data Penjualan Obat</h4>
+                                <h4 class="mb-0">Data Penjualan Produk</h4>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -46,9 +46,9 @@
                                 <input type="date" class="form-control" name="tanggal" value="{{ $data->tanggal }}">
                             </div>
                             <div class="form-group mb-3">
-                                <label for="">Obat</label>
+                                <label for="">Produk</label>
                                 <select name="obat" id="select_box" class="form-select">
-                                    <option value="">Pilih Obat</option>
+                                    <option value="">Pilih Produk</option>
                                     @foreach ($drugs as $item)
                                         <option value="{{ $item->obat }}"
                                             {{ $data->obat === $item->obat ? 'selected' : '' }}>
@@ -57,7 +57,7 @@
                                 </select>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="">Jumlah Obat</label>
+                                <label for="">Jumlah Produk</label>
                                 <input type="text" class="form-control" name="jumlah" value="{{ $data->jumlah }}">
                             </div>
                             <div class="form-group mb-3">

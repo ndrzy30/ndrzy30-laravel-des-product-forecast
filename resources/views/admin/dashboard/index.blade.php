@@ -2,54 +2,97 @@
 @section('title', 'Dashboard')
 @push('chart')
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        .order-card {
+            transition: all 0.3s ease-in-out;
+        }
+        .order-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(121, 16, 16, 0.3);
+        }
+        .card-stats {
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .bg-grd-primary { background: linear-gradient(45deg, #03cc50, #73b4ff); }
+        .bg-grd-success { background: linear-gradient(45deg, #2ed8b6, #59e0c5); }
+        .bg-grd-warning { background: linear-gradient(45deg, #FFB64D, #ffcb80); }
+        .bg-grd-danger { background: linear-gradient(45deg, #FF5370, #ff869a); }
+    </style>
 @endpush
+
 @section('main')
     <div class="pc-content">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="mb-2">DASHBOARD METODE DES</h2>
+                <p class="text-muted">Monitoring Prediksi Produk Pertanian UD. Dison</p>
+            </div>
+        </div>
+
+        <!-- Statistik Cards -->
         <div class="row">
-            <!-- Card Jumlah Obat -->
             <div class="col-md-6 col-xl-3">
-                <div class="card bg-grd-primary order-card">
+                <div class="card bg-grd-primary order-card card-stats">
                     <div class="card-body">
-                        <h6 class="text-white">Jumlah Obat</h6>
+                        <h6 class="text-white">Jumlah Produk</h6>
                         <h2 class="text-end text-white">
                             <i class="fa-solid fa-pills float-start"></i>
-                            <span>{{ $total_obat }}</span>
+                            <span>{{ number_format($total_obat) }}</span>
                         </h2>
+                        <p class="text-white-50 mb-0">Total Jenis Produk Tersedia</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Card Total Penjualan -->
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-grd-success order-card">
+            {{-- <div class="col-md-6 col-xl-3">
+                <div class="card bg-grd-success order-card card-stats">
                     <div class="card-body">
                         <h6 class="text-white">Total Penjualan</h6>
                         <h2 class="text-end text-white">
                             <i class="fa-solid fa-cart-shopping float-start"></i>
-                            <span>{{ $total_penjualan }}</span>
+                            <span>{{ number_format($total_penjualan) }}</span>
                         </h2>
+                        <p class="text-white-50 mb-0">Transaksi {{ $current_month }}</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Card Total Prediksi -->
             <div class="col-md-6 col-xl-3">
-                <div class="card bg-grd-warning order-card">
+                <div class="card bg-grd-warning order-card card-stats">
                     <div class="card-body">
-                        <h6 class="text-white">Total Prediksi</h6>
+                        <h6 class="text-white">Prediksi DES</h6>
                         <h2 class="text-end text-white">
                             <i class="fa-solid fa-chart-line float-start"></i>
-                            <span>{{ $total_prediksi }}</span>
+                            <span>{{ number_format($total_prediksi) }}</span>
                         </h2>
+                        <p class="text-white-50 mb-0">Total Hasil Prediksi</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <!-- Grafik Penjualan Bulanan -->
+            {{-- <div class="col-md-6 col-xl-3">
+                <div class="card bg-grd-danger order-card card-stats">
+                    <div class="card-body">
+                        <h6 class="text-white">Stok Warning</h6>
+                        <h2 class="text-end text-white">
+                            <i class="fa-solid fa-triangle-exclamation float-start"></i>
+                            <span>{{ number_format($stok_warning) }}</span>
+                        </h2>
+                        <p class="text-white-50 mb-0">Obat Stok Minimum</p>
+                    </div>
+                </div>
+            </div> --}}
+        </div>
+
+        <!-- Charts -->
+        {{-- <div class="row mt-4">
+            <!-- Monthly Sales Chart -->
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h5>Data Penjualan Bulanan</h5>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Trend Penjualan Bulanan</h5>
                     </div>
                     <div class="card-body">
                         <div id="monthlySalesChart"></div>
@@ -57,143 +100,111 @@
                 </div>
             </div>
 
-            <!-- Grafik Prediksi -->
-            <div class="col-md-12">
+            <!-- Prediction Chart -->
+            <div class="col-md-12 mt-4">
                 <div class="card">
-                    <div class="card-header">
-                        <h5>Data Perbandingan Aktual vs Prediksi</h5>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Perbandingan Data Aktual vs Prediksi</h5>
                     </div>
                     <div class="card-body">
                         <div id="predictionChart"></div>
                     </div>
                 </div>
             </div>
+        </div> --}}
 
-            <script>
-                // Grafik Penjualan Bulanan
-                var monthlySalesData = @json($monthly_sales);
-                var processedData = monthlySalesData.reduce((acc, item) => {
-                    if (!acc[item.year]) {
-                        acc[item.year] = Array(12).fill(null);
+        <!-- Charts Script -->
+        <script>
+            // Monthly Sales Chart
+            var monthlySalesOptions = {
+                chart: {
+                    type: 'area',
+                    height: 350,
+                    toolbar: {
+                        show: true
                     }
-                    acc[item.year][item.month - 1] = item.total_quantity;
-                    return acc;
-                }, {});
+                },
+                series: [{
+                    name: 'Total Penjualan',
+                    data: @json($monthly_sales->pluck('total_quantity'))
+                }],
+                xaxis: {
+                    categories: @json($monthly_sales->pluck('periode')),
+                    labels: {
+                        rotate: -45,
+                        rotateAlways: true
+                    }
+                },
+                yaxis: {
+                    title: {
+                        text: 'Jumlah Penjualan'
+                    },
+                    min: 0
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2
+                },
+                colors: ['#4099ff'],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.3
+                    }
+                }
+            };
 
-                var years = Object.keys(processedData);
-                var series = years.map(year => ({
-                    name: year,
-                    data: processedData[year]
-                }));
+            // Prediction Chart
+            var predictionOptions = {
+                chart: {
+                    type: 'line',
+                    height: 350,
+                    toolbar: {
+                        show: true
+                    }
+                },
+                series: [{
+                    name: 'Data Aktual',
+                    data: @json($prediction_data['actual'])
+                }, {
+                    name: 'Hasil Prediksi',
+                    data: @json($prediction_data['prediction'])
+                }],
+                xaxis: {
+                    categories: @json($prediction_data['periods']),
+                    labels: {
+                        rotate: -45,
+                        rotateAlways: true
+                    }
+                },
+                yaxis: {
+                    title: {
+                        text: 'Jumlah'
+                    },
+                    min: 0
+                },
+                colors: ['#2ed8b6', '#4099ff'],
+                stroke: {
+                    curve: 'smooth',
+                    width: 2
+                },
+                markers: {
+                    size: 4
+                },
+                legend: {
+                    position: 'top'
+                }
+            };
 
-                var monthlySalesOptions = {
-                    chart: {
-                        type: 'line',
-                        height: 350,
-                        toolbar: {
-                            show: true
-                        }
-                    },
-                    series: series,
-                    colors: ['#4099ff', '#2ed8b6', '#FFB64D'],
-                    dataLabels: {
-                        enabled: true,
-                        formatter: function(val) {
-                            return val !== null ? val.toFixed(0) : '';
-                        }
-                    },
-                    stroke: {
-                        width: 2,
-                        curve: 'straight',
-                    },
-                    xaxis: {
-                        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
-                        title: {
-                            text: 'Bulan'
-                        }
-                    },
-                    yaxis: {
-                        title: {
-                            text: 'Total Penjualan'
-                        }
-                    },
-                    grid: {
-                        borderColor: '#f1f1f1',
-                    },
-                    legend: {
-                        position: 'top'
-                    },
-                    responsive: [{
-                        breakpoint: 480,
-                        options: {
-                            chart: {
-                                width: '100%'
-                            },
-                            legend: {
-                                position: 'bottom'
-                            }
-                        }
-                    }]
-                };
+            // Render Charts
+            new ApexCharts(document.querySelector("#monthlySalesChart"), monthlySalesOptions).render();
+            new ApexCharts(document.querySelector("#predictionChart"), predictionOptions).render();
 
-                var monthlySalesChart = new ApexCharts(document.querySelector("#monthlySalesChart"), monthlySalesOptions);
-                monthlySalesChart.render();
-
-                // Grafik Prediksi
-                var predictionData = @json($prediction_data);
-                var predictionOptions = {
-                    chart: {
-                        type: 'line',
-                        height: 350,
-                        toolbar: {
-                            show: true
-                        }
-                    },
-                    colors: ['#4099ff', '#2ed8b6'],
-                    series: [{
-                        name: 'Data Aktual',
-                        data: predictionData.actual
-                    }, {
-                        name: 'Hasil Prediksi',
-                        data: predictionData.prediction
-                    }],
-                    stroke: {
-                        width: [4, 4],
-                        curve: 'straight'
-                    },
-                    xaxis: {
-                        categories: predictionData.periods,
-                        title: {
-                            text: 'Periode'
-                        }
-                    },
-                    yaxis: {
-                        title: {
-                            text: 'Jumlah Permintaan'
-                        }
-                    },
-                    grid: {
-                        borderColor: '#f1f1f1',
-                    },
-                    legend: {
-                        position: 'top'
-                    },
-                    responsive: [{
-                        breakpoint: 480,
-                        options: {
-                            chart: {
-                                width: '100%'
-                            },
-                            legend: {
-                                position: 'bottom'
-                            }
-                        }
-                    }]
-                };
-
-                var predictionChart = new ApexCharts(document.querySelector("#predictionChart"), predictionOptions);
-                predictionChart.render();
-            </script>
-        </div>
+            // Debug
+            console.log('Monthly Sales:', @json($monthly_sales));
+            console.log('Prediction Data:', @json($prediction_data));
+        </script>
     </div>
 @endsection

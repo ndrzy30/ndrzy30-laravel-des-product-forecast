@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Obat extends Model
@@ -12,18 +11,25 @@ class Obat extends Model
         'nama_obat',
         'kategori',
         'satuan',
-        'stok'
+        // 'stok',
+        // 'minimum_stok'
     ];
 
-    // Relasi ke tabel penjualan
-    public function penjualans()
+    // Relasi ke penjualan
+    public function penjualan()
     {
         return $this->hasMany(Penjualan::class);
     }
 
-    // Relasi ke tabel prediksi
-    public function prediksis()
+    // Relasi ke prediksi
+    public function prediksi()
     {
         return $this->hasMany(Prediksi::class);
     }
+
+    // Scope untuk mendapatkan obat dengan stok di bawah minimum
+    // public function scopeNeedRestock($query)
+    // {
+    //     return $query->whereRaw('stok <= minimum_stok');
+    
 }

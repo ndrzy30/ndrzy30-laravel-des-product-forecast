@@ -9,7 +9,7 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title border-bottom pb-2 mb-2">
-                                <h4 class="mb-0">Laporan Penjualan Obat</h4>
+                                <h4 class="mb-0">Laporan Penjualan Produk</h4>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -46,7 +46,7 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Import Data Obat</h1>
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Import Data Produk</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>
@@ -73,7 +73,7 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>Tanggal</th>
-                                        <th>Obat</th>
+                                        <th>Produk</th>
                                         <th>Jumlah</th>
                                     </tr>
                                 </thead>
